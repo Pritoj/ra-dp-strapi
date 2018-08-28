@@ -62,3 +62,7 @@ typings/
 
 # remove yarn.lock
 yarn.lock
+
+# Don't upload dist folder
+dist
+package-lock.json

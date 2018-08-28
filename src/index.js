@@ -1,4 +1,3 @@
-import Strapi from 'strapi-sdk-javascript';
 import { stringify } from 'query-string';
 import {
     fetchUtils,
@@ -15,9 +14,7 @@ import {
 
 import { createGetParams } from './utils';
 
-export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
-    const strapi = new Strapi(apiUrl);
-
+export default (strapi, apiUrl, httpClient = fetchUtils.fetchJson) => {
     /**
      * Gets a list of entries
      * @param {string} resource The resource to fetch
