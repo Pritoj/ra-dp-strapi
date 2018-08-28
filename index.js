@@ -39,7 +39,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         // Since they can both be done separately
         const data = await Promise.all([list, total]);
 
-        return { data:data[0], total:data[1].json };
+        return { data: data[0], total: data[1].json };
     }
 
     const getOne = async (resource, params) => {
@@ -55,23 +55,37 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         return { data };
     }
 
-    const createEntry = async(resource, params) => {
+    const createEntry = async (resource, params) => {
         // Just take the data and throw it at strapi
         const data = await strapi.createEntry(resource, params.data);
-        
+
         // return the data
         return { data };
     }
 
+    const updateEntry = async (resource, params) => {
+        // Extract id and params
+        const {
+            id,
+            data
+        } = params;
+
+        const entry = await strapi.updateEntry(resource, id, data);
+        return { data: entry }
+    }
+
     return async (type, resource, params) => {
         console.log(params);
-        switch(type) {
+        switch (type) {
             case GET_LIST:
                 return getList(resource, params);
             case GET_ONE:
                 return getOne(resource, params);
             case CREATE:
                 return createEntry(resource, params);
+            case UPDATE:
+                return updateEntry(resource, params);
+
             default:
                 console.error('Action type not found')
                 return false;
