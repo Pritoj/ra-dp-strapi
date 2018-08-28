@@ -1,0 +1,19 @@
+{
+  "name": "ra-dp-strapi",
+  "version": "0.0.1",
+  "description": "A Strapi Data Provider for react-admin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "strapi",
+    "react-admin",
+    "admin-on-react"
+  ],
+  "author": "Pritoj Singh <pritojs@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "strapi-sdk-javascript": "^0.2.1"
+  }
+}
