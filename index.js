@@ -74,6 +74,68 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         return { data: entry }
     }
 
+    const updateManyEntries = async (resource, params) => {
+        const {
+            ids,
+            data
+        } = params;
+
+        // update all ids and get the promises
+        const allUpdates = ids.map((id) => {
+            return updateEntry(resource, { id, data });
+        });
+
+        // await all updates to complete
+        const updates = await Promise.all(allUpdates);
+
+        // get the Ids of all updates
+        const updatedIds = updates.map((entry) => (entry.id));
+
+        return { data: updatedIds };
+    }
+
+    const deleteEntry = async (resource, params) => {
+        // Extract id 
+        const {
+            id
+        } = params;
+
+        // delete the entry
+        const data = await strapi.deleteEntry(resource, id);
+
+        // return the data recieved
+        return { data }
+    }
+
+    const deleteManyEntries = async (resource, params) => {
+        const {
+            ids
+        } = params;
+
+        const allDeletes = ids.map((id) => {
+            return deleteEntry(resource, { id });
+        });
+
+        const deletes = await Promise.all(allDeletes);
+
+        const deletedIds = deletes.map((entry) => (entry.id));
+
+        return { data: deletedIds };
+    }
+
+    const getMany = async (resource, params) => {
+        const {
+            ids
+        } = params;
+
+        const allRecords = ids.map((id) => {
+            return getOne(resource, { id });
+        });
+
+        const data = await Promise.all(allRecords);
+        return { data };
+    }
+
     return async (type, resource, params) => {
         console.log(params);
         switch (type) {
@@ -85,7 +147,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 return createEntry(resource, params);
             case UPDATE:
                 return updateEntry(resource, params);
-
+            case UPDATE_MANY:
+                return updateManyEntries(resource, params);
+            case DELETE:
+                return deleteEntry(resource, params);
+            case DELETE_MANY:
+                return deleteManyEntries(resource, params);
+            case GET_MANY:
+                return getMany(resource, params)
             default:
                 console.error('Action type not found')
                 return false;
