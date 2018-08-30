@@ -21,9 +21,9 @@ const getPaginationParams = (pagination) => {
     }
 }
 
-// TODO: Must implement this function
+// TODO: Must implement this function properly
 const getFilterParams = (filter) => {
-    return null;
+    return filter;
 }
 
 /**

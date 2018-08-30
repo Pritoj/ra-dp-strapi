@@ -133,6 +133,15 @@ export default (strapi, apiUrl, httpClient = fetchUtils.fetchJson) => {
         return { data };
     }
 
+    const getManyReference = async (resource, params) => {
+        const {
+            target
+        } = params;
+        params.filter[target] = params.id;
+
+        return getList(resource, params);
+    }
+
     return async (type, resource, params) => {
         console.log(params);
         switch (type) {
@@ -152,6 +161,8 @@ export default (strapi, apiUrl, httpClient = fetchUtils.fetchJson) => {
                 return deleteManyEntries(resource, params);
             case GET_MANY:
                 return getMany(resource, params)
+            case GET_MANY_REFERENCE:
+                return getManyReference(resource, params)
             default:
                 console.error('Action type not found')
                 return false;
