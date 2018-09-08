@@ -14,7 +14,7 @@ import {
 
 import { createGetParams } from './utils';
 
-export default (strapi, apiUrl, httpClient = fetchUtils.fetchJson) => {
+export default (strapi, httpClient = fetchUtils.fetchJson) => {
     /**
      * Gets a list of entries
      * @param {string} resource The resource to fetch
@@ -30,13 +30,12 @@ export default (strapi, apiUrl, httpClient = fetchUtils.fetchJson) => {
         // Get the total
         // We'll use a hack here till strapi sdk
         // provides a default way to do this
-        const total = httpClient(`${apiUrl}/${resource}/count`);
-
+        const count = strapi.getEntryCount(resource, strapiParams);//httpClient(`${apiUrl}/${resource}/count`);
         // We put both in a promise instead of waiting for them
         // Since they can both be done separately
-        const data = await Promise.all([list, total]);
+        const [data, total] = await Promise.all([list, count]);
 
-        return { data: data[0], total: data[1].json };
+        return { data, total };
     }
 
     const getOne = async (resource, params) => {
