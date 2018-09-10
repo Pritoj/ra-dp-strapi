@@ -1,6 +1,6 @@
 {
   "name": "ra-dp-strapi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Strapi Data Provider for react-admin",
   "main": "dist/index.js",
   "scripts": {

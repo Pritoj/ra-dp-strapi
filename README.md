@@ -10,24 +10,23 @@ A simple strapi data provider for react-admin or admin-on-react
 `yarn add strapi-sdk-javascript ra-dp-strapi` 
 
 ## Usage
+
 ```
-import Strapi from 'strapi-sdk-javascript';
+/// IMPORTANT to import like this.
+import Strapi from 'strapi-sdk-javascript/build/main';
 import strapiDataProvider from 'ra-dp-strapi';
 
 ...
-    const apiUrl = 'http://localhost:1337';
-    const strapi = new Strapi(apiUrl);
+const apiUrl = 'http://localhost:1337';
+const strapi = new Strapi(apiUrl);
 
 ...
 
-    <Admin dataProvider={strapiDataProvider(strapi, apiUrl)}>
-        ...
-    </Admin>
+<Admin dataProvider={strapiDataProvider(strapi)}>
+    ...
+</Admin>
 
 ```
-
-## Dependency
-For now, you must have the strapi SDK installed and will probably need to add those files to your compliler as well.
 
 ## TO-DO
     - Improve docs
