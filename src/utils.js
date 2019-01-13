@@ -5,7 +5,7 @@
  * @param {string} sortOrder 
  */
 const getSortParams = (sortField, sortOrder) => {
-    return `${sortField}:${sortOrder.toLowerCase()}`;
+    return `${sortField}:${sortOrder}`;
 }
 
 const getPaginationParams = (pagination) => {
