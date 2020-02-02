@@ -125,7 +125,7 @@ export default (strapi, httpClient = fetchUtils.fetchJson) => {
         } = params;
 
         const allRecords = ids.map((id) => {
-            return getOne(resource, { id });
+            return getOne(resource, { id }).then(resp => resp.data);
         });
 
         const data = await Promise.all(allRecords);
